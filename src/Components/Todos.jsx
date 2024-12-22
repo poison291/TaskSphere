@@ -64,8 +64,8 @@ export default function Todos() {
                     <ul className="mt-8 w-full max-w-md space-y-4">
                         {todos.map((todoList) => (
                             <li
-                                key={todoList.id}
-                                className="flex items-center justify-between bg-gray-800 border border-teal-600 rounded-lg py-3 px-4 shadow-md"
+                            key={todoList.id}
+                            className="flex items-center justify-between bg-gray-800 border border-teal-600 rounded-lg py-3 px-4 shadow-md"
                             >
                                 <div className="flex items-center space-x-3">
                                     <input
@@ -75,18 +75,18 @@ export default function Todos() {
                                             settodos(
                                                 todos.map((t) =>
                                                     t.id === todoList.id
-                                                        ? { ...t, completed: !t.completed }
-                                                        : t
-                                                )
+                                                ? { ...t, completed: !t.completed }
+                                                : t
                                             )
-                                        }
+                                        )
+                                    }
                                         className="h-5 w-5 text-teal-500 border-gray-700 focus:ring-teal-500 rounded"
                                     />
                                     <span
                                         className={`${todoList.completed
-                                                ? "line-through text-gray-500"
-                                                : "text-white"
-                                            }`}
+                                            ? "line-through text-gray-500"
+                                            : "text-white"
+                                        }`}
                                     >
                                         {todoList.text}
                                     </span>
@@ -95,6 +95,7 @@ export default function Todos() {
                         ))}
                     </ul>
                 )}
+            <p className="text-red-500 absolute bottom-0">(Made By Poison <br />Under Construction)</p>
             </div>
         </>
     );
