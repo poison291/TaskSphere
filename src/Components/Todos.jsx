@@ -1,102 +1,83 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect } from 'react'
+import 'react-toastify/dist/ReactToastify.css'
+import { toast, ToastContainer } from 'react-toastify'
+import { useState } from 'react'
 
 export default function Todos() {
-  const [todos, settodos] = useState([]);
-  const [input, setinput] = useState("");
+  const [input, setinput] = useState('')
+  const [todo, settodo] = useState([])
 
+  // Reading Data from Local Storage
   useEffect(() => {
-    const saveTodos = localStorage.getItem("todos");
-    if (saveTodos) {
-      settodos(JSON.parse(saveTodos));
+    const savedData= localStorage.getItem('todos')
+    if(savedData){
+      settodo(JSON.parse(savedData))
     }
-  }, []);
+  }, [])
 
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+useEffect(() => {
+  // Saving in Local Storage
+  localStorage.setItem('todos', JSON.stringify(todo))
+}, [todo])
+
+
+
+
+  // Todo Add Function
 
   const addTodo = () => {
     if (input.length > 0 && input.length <= 40) {
-      settodos([...todos, { id: Date.now(), text: input, completed: false }]);
-      setinput("");
-    } else {
+      settodo([...todo, input]);
+      console.log(todo)
+      // setinput('')
+    }
+    else {
       if (input.length === 0) {
-        alert("Todo cannot be empty!");
-      } else if (input.length > 40) {
-        alert("Todo is too long! Please keep it under 40 characters.");
+        toast.error('Todo Cannot Be Empty')
+      }
+      else if (input.length > 40) {
+        toast.error('Todo Must be Under 40 charcters Long!')
       }
     }
-  };
+  }
+
 
   return (
     <>
-      <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-start py-10 px-4">
-        <h1 className="text-center text-4xl font-bold text-teal-400 mb-8">
-          TaskSphere
-        </h1>
-
-        <div className="flex items-center justify-center space-x-4">
+      <div className="bg-gray-400 min-h-screen">
+        {/* Input section */}
+        <div className="flex justify-center items-center pt-10 pb-10">
           <input
             type="text"
             value={input}
-            className="w-[360px] py-3 px-4 bg-gray-800 text-white border-2 border-teal-600 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-700 placeholder-gray-400 transition-all duration-300 ease-in-out"
-            placeholder="Enter your todo"
             onChange={(e) => setinput(e.target.value)}
+            placeholder="Start Writing To Add Task"
+            className="w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 py-3 rounded-tl-lg rounded-bl-lg text-black bg-white border-2 border-gray-300 focus:outline-none focus:ring-2 placeholder:text-gray-400 focus:ring-purple-500 focus:border-purple-500 shadow-lg transition-all ease-in-out duration-300"
           />
-
           <button
             onClick={addTodo}
-            className="bg-teal-500 text-white px-6 py-3 rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300 ease-in-out"
-          >
-            Add
-          </button>
+            className='bg-purple-600 py-3 px-5 rounded-tr-lg rounded-br-lg'>Add</button>
         </div>
 
-        {todos.length === 0 ? (
-          <p className="text-center text-gray-500 text-xl mt-5">
-            No Todo Yet. Add your first task!
-          </p>
-        ) : (
-          <ul className="mt-8 w-full max-w-md space-y-4">
-            {todos.map((todoList) => (
-              <li
-                key={todoList.id}
-                className="flex items-center justify-between bg-gray-800 border border-teal-600 rounded-lg py-3 px-4 shadow-md"
-              >
-                <div className="flex items-center space-x-3">
-                  <input
-                    type="checkbox"
-                    checked={todoList.completed}
-                    onChange={() =>
-                      settodos(
-                        todos.map((t) =>
-                          t.id === todoList.id
-                            ? { ...t, completed: !t.completed }
-                            : t
-                        )
-                      )
-                    }
-                  />
-                  <span
-                    className={`${
-                      todoList.completed
-                        ? "line-through text-gray-500"
-                        : "text-white"
-                    }`}
-                  >
-                    {todoList.text}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-        <p className="text-red-500 absolute bottom-0">
-          (Made By Poison <br />
-          Under Construction)
-        </p>
+        {/* Todo Listing section */}
+
+        {
+          todo.map((todo, index) => {
+            return (
+              <div key={index} className="flex flex-row items-center bg-gray-600 rounded-lg mx-10 mt-4 p-4 shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
+              <h1 className="text-white font-mono text-lg">{todo}</h1>
+            </div>
+            
+            )
+          })
+        }
+
       </div>
+
+
+
+
+      <ToastContainer />
     </>
-  );
+  )
 }

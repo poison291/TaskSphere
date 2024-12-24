@@ -1,18 +1,12 @@
-import React from "react";
-import Todos from "./Components/Todos";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import React from 'react'
+import Routing from './Routing/Routing'
 
-function App() {
+const App = () => {
   return (
-    <>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-    </>
-  );
+   <>
+   <Routing/>
+   </>
+  )
 }
 
-export default App;
+export default App
