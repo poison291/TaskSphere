@@ -29,7 +29,7 @@ useEffect(() => {
     if (input.length > 0 && input.length <= 40) {
       settodo([...todo, input]);
       console.log(todo)
-      // setinput('')
+      setinput('')
     }
     else {
       if (input.length === 0) {
