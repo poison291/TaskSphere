@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast, ToastContainer } from 'react-toastify'
 import { useState } from 'react'
+import { FaTrash } from 'react-icons/fa'
 
 export default function Todos() {
   const [input, setinput] = useState('')
@@ -27,8 +28,13 @@ useEffect(() => {
 
   const addTodo = () => {
     if (input.length > 0 && input.length <= 40) {
-      settodo([...todo, input]);
-      console.log(todo)
+      const newTodo = {
+        title: input,
+        time: Date.now(),
+        completed: false
+      }
+      settodo([...todo, newTodo]);
+      console.log(newTodo)
       setinput('')
     }
     else {
@@ -42,9 +48,13 @@ useEffect(() => {
   }
 
 
+  const deleteTodo = () => {
+
+  }
+
   return (
     <>
-      <div className="bg-gray-400 min-h-screen">
+      <div className="bg-[#212121] min-h-screen">
         {/* Input section */}
         <div className="flex justify-center items-center pt-10 pb-10">
           <input
@@ -64,8 +74,14 @@ useEffect(() => {
         {
           todo.map((todo, index) => {
             return (
-              <div key={index} className="flex flex-row items-center bg-gray-600 rounded-lg mx-10 mt-4 p-4 shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
-              <h1 className="text-white font-mono text-lg">{todo}</h1>
+              <div key={index} className="flex flex-row items-center bg-teal-600 rounded-lg mt-4 p-4 shadow-lg hover:bg-teal-800 transition duration-300 ease-in-out mx-64">
+                <h1 className="text-white font-mono text-lg flex-grow">{todo.title}</h1>
+              <button
+                onClick={() => deleteTodo(index)}
+                className="text-white p-2 rounded-full hover:bg-red-600 transition duration-200"
+              >
+                <FaTrash /> 
+              </button>
             </div>
             
             )
