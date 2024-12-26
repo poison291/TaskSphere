@@ -62,11 +62,11 @@ useEffect(() => {
             value={input}
             onChange={(e) => setinput(e.target.value)}
             placeholder="Start Writing To Add Task"
-            className="w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 py-3 rounded-tl-lg rounded-bl-lg text-black bg-white border-2 border-gray-300 focus:outline-none focus:ring-2 placeholder:text-gray-400 focus:ring-purple-500 focus:border-purple-500 shadow-lg transition-all ease-in-out duration-300"
+            className="w-2/3 select-none sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 py-3 rounded-tl-lg rounded-bl-lg text-black bg-white border-2 border-gray-300 focus:outline-none focus:ring-2 placeholder:text-gray-400 focus:ring-purple-500 focus:border-purple-500 shadow-lg transition-all ease-in-out duration-300"
           />
           <button
             onClick={addTodo}
-            className='bg-purple-600 py-3 px-5 rounded-tr-lg rounded-br-lg'>Add</button>
+            className='bg-purple-600 py-4 px-5 rounded-tr-lg rounded-br-lg'>Add</button>
         </div>
 
         {/* Todo Listing section */}
